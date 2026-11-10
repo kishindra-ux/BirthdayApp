@@ -1,13 +1,10 @@
 import streamlit as st
 
-# --- EDIT PAGE TAB TITLE AND ICON HERE ---
-st.set_page_config(page_title="Happy Birthday! ∞", page_icon="♾️")
+st.set_page_config(page_title="Happy Birthday Karismaa ! ♾", page_icon="♾️")
 
-# --- EDIT MAIN BIRTHDAY TITLE HERE ---
-st.title("♾️ Happy Birthday! To Infinity and Beyond! ♾️")
+st.title("♾️ Happy Birthday ! To Infinity and Beyond! ♾️")
 
-# --- EDIT WELCOME MESSAGE HERE ---
-st.write("Welcome to your special birthday experience! Just like an infinity loop, our friendship has no end. Let's start with a quick challenge!")
+st.write("Just like an infinity loop, our friendship has no end, ok so dont overthink tooomuch be calm enjoy this .")
 
 # Initialize st.session_state to track the phase, quiz step, and score
 if "phase" not in st.session_state:
@@ -19,34 +16,27 @@ if "step" not in st.session_state:
 if "score" not in st.session_state:
     st.session_state.score = 0
 
-# Define the 3 multiple-choice questions
+# Define the multiple-choice questions
 questions = [
     {
-        # --- EDIT QUIZ QUESTION 1 HERE ---
-        "question": "1. What is my favorite memory of us?",
-        # --- EDIT QUIZ QUESTION 1 ANSWER CHOICES HERE ---
-        "options": ["Our late-night talks", "That crazy road trip", "Laughing over nothing", "All of the above"],
-        # --- EDIT QUIZ QUESTION 1 CORRECT ANSWER HERE (MUST MATCH ONE OF THE OPTIONS EXACTLY) ---
-        "answer": "All of the above"
-    },
-    {
-        # --- EDIT QUIZ QUESTION 2 HERE ---
-        "question": "2. If we had infinite time together, what would we do first?",
-        # --- EDIT QUIZ QUESTION 2 ANSWER CHOICES HERE ---
-        "options": ["Travel the world", "Eat infinite snacks", "Binge-watch every movie", "Build a pillow fort"],
-        # --- EDIT QUIZ QUESTION 2 CORRECT ANSWER HERE (MUST MATCH ONE OF THE OPTIONS EXACTLY) ---
-        "answer": "Travel the world"
-    },
-    {
-        # --- EDIT QUIZ QUESTION 3 HERE ---
-        "question": "3. How long are we going to be best friends?",
-        # --- EDIT QUIZ QUESTION 3 ANSWER CHOICES HERE ---
-        "options": ["A few years", "Until we get old", "For infinity", "Until tomorrow"],
-        # --- EDIT QUIZ QUESTION 3 CORRECT ANSWER HERE (MUST MATCH ONE OF THE OPTIONS EXACTLY) ---
-        "answer": "For infinity"
+        "question": "first of all happy birthday then if u want to start the quiz press anything u want:",
+        "options": ["anyways it will start", "dont click on this", "error", "anything"],
+        "answer": ["anyways it will start", "dont click on this", "error", "anything"]
     }
 ]
 
+question = [
+    {
+        "question": "answer travel the world",
+        "options": ["Travel the world", "Eat infinite snacks", "Binge-watch every movie", "Build a pillow fort"],
+        "answer": "Travel the world"
+    },
+    {
+        "question": "How long are we going to be best friends?",
+        "options": ["few years", "till old.", "For infinity...", "tomorrow ?"],
+        "answer": "For infinity..."
+    },
+]
 # ==========================================
 # PHASE 1: PUZZLE PHASE
 # ==========================================
@@ -61,7 +51,7 @@ if st.session_state.phase == "puzzle phase":
     puzzle_guess = st.text_input("Type your answer below:")
     
     # --- EDIT PUZZLE SUBMIT BUTTON TEXT HERE ---
-    if st.button("Check Answer"):
+    if st.button("Answer"):
         # --- EDIT PUZZLE CORRECT ANSWER HERE (USE LOWERCASE) ---
         if puzzle_guess.strip().lower() == "infinity":
             st.session_state.puzzle_solved = True
@@ -74,29 +64,41 @@ if st.session_state.phase == "puzzle phase":
         st.success("You unlocked the Infinity loop! ✨")
         
         # --- EDIT IMAGE FILENAME AND CAPTION HERE ---
-        st.image("infinity.jpg", caption="Infinite Memories Forever ♾️")
+        st.image("img6.jpg", caption="Infinite Memories Forever ♾️")
         
         # --- EDIT PROCEED TO QUIZ BUTTON TEXT HERE ---
         if st.button("Proceed to the Birthday Quiz ➡️"):
-            st.session_state.phase = "quiz phase"
+            st.session_state.phase = "quiz phase1"
             st.rerun()
-
-# ==========================================
-# PHASE 2: QUIZ PHASE
-# ==========================================
-elif st.session_state.phase == "quiz phase":
+            
+elif st.session_state.phase == "quiz phase1":
     current_q = questions[st.session_state.step]
     
     st.subheader(current_q["question"])
-    
-    # --- EDIT RADIO BUTTON PROMPT LABEL HERE ---
     user_choice = st.radio(
         "Select your answer:",
         current_q["options"],
         key=f"q_{st.session_state.step}"
     )
+
+    if st.button("Submit"):
+        if user_choice == current_q["answer"]:
+            st.session_state.phase == "quiz phase"
+
+# ==========================================
+# PHASE 2: QUIZ PHASE
+# ==========================================
+elif st.session_state.phase == "quiz phase":
+    current_q = question[st.session_state.step]
     
-    # --- EDIT QUIZ SUBMIT BUTTON TEXT HERE ---
+    st.subheader(current_q["question"])
+
+    user_choice = st.radio(
+        "Select your answer:",
+        current_q["options"],
+        key=f"q_{st.session_state.step}"
+    )
+
     if st.button("Submit"):
         if user_choice == current_q["answer"]:
             st.session_state.score += 1
@@ -128,13 +130,14 @@ elif st.session_state.phase == "completed phase":
         st.success("You passed the quiz! Wishing you the happiest of birthdays filled with infinite joy, laughter, and love! Here are some of my favorite memories with you: 💖♾️")
         
         # --- EDIT MEMORY 1 IMAGE FILENAME AND CAPTION HERE ---
-        st.image("memory1.jpg", caption="Memory 1: Unforgettable times ✨")
+        st.image("img3.jpg", caption="Memory 1:✨")
         
         # --- EDIT MEMORY 2 IMAGE FILENAME AND CAPTION HERE ---
-        st.image("memory2.jpg", caption="Memory 2: Always laughing together 😂")
+        st.image("img2.jpg", caption="Memory 2:😂")
         
         # --- EDIT MEMORY 3 IMAGE FILENAME AND CAPTION HERE ---
-        st.image("memory3.jpg", caption="Memory 3: Friends to infinity and beyond ♾️")
+        st.image("img4.jpg", caption="Memory 3:♾️")
+        st.image("img5.jpg", caption=" ")
     else:
         # --- EDIT DID NOT PASS MESSAGE HERE ---
         st.warning("So close! Give the quiz another try to unlock your special birthday surprise! 🎈")
