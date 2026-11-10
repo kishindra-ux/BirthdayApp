@@ -64,7 +64,7 @@ if st.session_state.phase == "puzzle phase":
         st.success("You unlocked the Infinity loop! ✨")
         
         # --- EDIT IMAGE FILENAME AND CAPTION HERE ---
-        st.image("img6.jpg", caption="Infinite Memories Forever ♾️")
+        st.image("img6.jpeg", caption="Infinite Memories Forever ♾️")
         
         # --- EDIT PROCEED TO QUIZ BUTTON TEXT HERE ---
         if st.button("Proceed to the Birthday Quiz ➡️"):
@@ -130,14 +130,14 @@ elif st.session_state.phase == "completed phase":
         st.success("You passed the quiz! Wishing you the happiest of birthdays filled with infinite joy, laughter, and love! Here are some of my favorite memories with you: 💖♾️")
         
         # --- EDIT MEMORY 1 IMAGE FILENAME AND CAPTION HERE ---
-        st.image("img3.jpg", caption="Memory 1:✨")
+        st.image("img3.jpeg", caption="Memory 1:✨")
         
         # --- EDIT MEMORY 2 IMAGE FILENAME AND CAPTION HERE ---
-        st.image("img2.jpg", caption="Memory 2:😂")
+        st.image("img2.jpeg", caption="Memory 2:😂")
         
         # --- EDIT MEMORY 3 IMAGE FILENAME AND CAPTION HERE ---
-        st.image("img4.jpg", caption="Memory 3:♾️")
-        st.image("img5.jpg", caption=" ")
+        st.image("img4.jpeg", caption="Memory 3:♾️")
+        st.image("img5.jpeg", caption=" ")
     else:
         # --- EDIT DID NOT PASS MESSAGE HERE ---
         st.warning("So close! Give the quiz another try to unlock your special birthday surprise! 🎈")
