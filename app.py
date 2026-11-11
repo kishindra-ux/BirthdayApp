@@ -16,15 +16,15 @@ if "step" not in st.session_state:
 if "score" not in st.session_state:
     st.session_state.score = 0
 
-# Define the multiple-choice questions
+# Intro starter question (Phase 1 quiz)
 questions = [
     {
         "question": "first of all happy birthday then if u want to start the quiz press anything u want:",
         "options": ["anyways it will start", "dont click on this", "error", "anything"],
-        "answer": ["anyways it will start", "dont click on this", "error", "anything"]
     }
 ]
 
+# Main quiz questions (Phase 2 quiz)
 question = [
     {
         "question": "answer travel the world",
@@ -37,56 +37,51 @@ question = [
         "answer": "For infinity..."
     },
 ]
+
 # ==========================================
 # PHASE 1: PUZZLE PHASE
 # ==========================================
 if st.session_state.phase == "puzzle phase":
-    # --- EDIT PUZZLE PHASE HEADER HERE ---
     st.subheader("Phase 1: The Infinity Riddle 🧩")
-    
-    # --- EDIT YOUR PUZZLE CLUE / RIDDLE TEXT HERE ---
     st.write("I have no beginning and I have no end. Turn me on my side, and I look like the number 8. What am I?")
     
-    # --- EDIT PUZZLE INPUT PROMPT LABEL HERE ---
     puzzle_guess = st.text_input("Type your answer below:")
     
-    # --- EDIT PUZZLE SUBMIT BUTTON TEXT HERE ---
     if st.button("Answer"):
-        # --- EDIT PUZZLE CORRECT ANSWER HERE (USE LOWERCASE) ---
         if puzzle_guess.strip().lower() == "infinity":
             st.session_state.puzzle_solved = True
         else:
-            # --- EDIT PUZZLE WRONG ANSWER HINT MESSAGE HERE ---
             st.error("Not quite! Hint: Check the theme of this page!")
             
     if st.session_state.puzzle_solved:
-        # --- EDIT PUZZLE SOLVED SUCCESS MESSAGE HERE ---
         st.success("You unlocked the Infinity loop! ✨")
-        
-        # --- EDIT IMAGE FILENAME AND CAPTION HERE ---
         st.image("img6.jpeg", caption="Infinite Memories Forever ♾️")
         
-        # --- EDIT PROCEED TO QUIZ BUTTON TEXT HERE ---
         if st.button("Proceed to the Birthday Quiz ➡️"):
             st.session_state.phase = "quiz phase1"
             st.rerun()
-            
+
+# ==========================================
+# PHASE 1.5: STARTER QUESTION (ANY OPTION ADVANCES)
+# ==========================================
 elif st.session_state.phase == "quiz phase1":
-    current_q = questions[st.session_state.step]
+    current_q = questions[0]
     
     st.subheader(current_q["question"])
     user_choice = st.radio(
         "Select your answer:",
         current_q["options"],
-        key=f"q_{st.session_state.step}"
+        key="starter_q"
     )
 
     if st.button("Submit"):
-        if user_choice == current_q["answer"]:
-            st.session_state.phase == "quiz phase"
+        # Clicking submit on any answer resets the question counter and advances to the main quiz
+        st.session_state.step = 0
+        st.session_state.phase = "quiz phase"
+        st.rerun()
 
 # ==========================================
-# PHASE 2: QUIZ PHASE
+# PHASE 2: MAIN QUIZ PHASE
 # ==========================================
 elif st.session_state.phase == "quiz phase":
     current_q = question[st.session_state.step]
@@ -105,7 +100,8 @@ elif st.session_state.phase == "quiz phase":
             
         st.session_state.step += 1
         
-        if st.session_state.step >= len(questions):
+        # Check against question list length
+        if st.session_state.step >= len(question):
             st.session_state.phase = "completed phase"
             
         st.rerun()
@@ -114,35 +110,22 @@ elif st.session_state.phase == "quiz phase":
 # PHASE 3: COMPLETED PHASE
 # ==========================================
 elif st.session_state.phase == "completed phase":
-    # --- EDIT COMPLETED PHASE HEADER HERE ---
     st.subheader("Birthday Quiz Complete! 🥳🎂")
+    st.write(f"Your final score is **{st.session_state.score} out of {len(question)}**!")
     
-    # --- EDIT FINAL SCORE MESSAGE HERE ---
-    st.write(f"Your final score is **{st.session_state.score} out of {len(questions)}**!")
-    
-    # --- EDIT PASSING SCORE THRESHOLD HERE (DEFAULT IS 2 OUT OF 3) ---
     passing_score = 2
     
     if st.session_state.score >= passing_score:
         st.balloons()
-        
-        # --- EDIT FINAL MESSAGE HERE ---
         st.success("You passed the quiz! Wishing you the happiest of birthdays filled with infinite joy, laughter, and love! Here are some of my favorite memories with you: 💖♾️")
         
-        # --- EDIT MEMORY 1 IMAGE FILENAME AND CAPTION HERE ---
         st.image("img3.jpeg", caption="Memory 1:✨")
-        
-        # --- EDIT MEMORY 2 IMAGE FILENAME AND CAPTION HERE ---
         st.image("img2.jpeg", caption="Memory 2:😂")
-        
-        # --- EDIT MEMORY 3 IMAGE FILENAME AND CAPTION HERE ---
         st.image("img4.jpeg", caption="Memory 3:♾️")
         st.image("img5.jpeg", caption=" ")
     else:
-        # --- EDIT DID NOT PASS MESSAGE HERE ---
         st.warning("So close! Give the quiz another try to unlock your special birthday surprise! 🎈")
 
-    # --- EDIT RESTART BUTTON TEXT HERE ---
     if st.button("Replay Birthday Experience 🔄"):
         st.session_state.phase = "puzzle phase"
         st.session_state.puzzle_solved = False
